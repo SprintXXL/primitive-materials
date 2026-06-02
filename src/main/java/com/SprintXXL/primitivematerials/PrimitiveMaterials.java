@@ -1,5 +1,6 @@
 package com.SprintXXL.primitivematerials;
 
+import com.SprintXXL.primitivematerials.materials.MaterialRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -15,6 +16,8 @@ public class PrimitiveMaterials
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
+
+        MaterialRegistry.init();
     }
 
     @EventHandler

@@ -1,0 +1,25 @@
+// Blocks \\
+
+
+// Items \\
+item.primitivematerials.cinnabar.name=Cinnabar
+item.primitivematerials.coal.name=Coal
+item.primitivematerials.lignite_coal.name=Lignite Coal
+
+// Ingots \\
+item.primitivematerials.bronze_ingot.name=Bronze Ingot
+item.primitivematerials.copper_ingot.name=Copper Ingot
+item.primitivematerials.gold_ingot.name=Gold Ingot
+item.primitivematerials.iron_ingot.name=Iron Ingot
+item.primitivematerials.tin_ingot.name=Tin Ingot
+
+// Dusts \\
+item.primitivematerials.bronze_dust.name=Bronze Dust
+item.primitivematerials.cinnabar_dust.name=Cinnabar Dust
+item.primitivematerials.coal_dust.name=Coal Dust
+item.primitivematerials.copper_dust.name=Copper Dust
+item.primitivematerials.gold_dust.name=Gold Dust
+item.primitivematerials.iron_dust.name=Iron Dust
+item.primitivematerials.lignite_coal_dust.name=Lignite Coal Dust
+item.primitivematerials.redstone_dust.name=Redstone Dust
+item.primitivematerials.tin_dust.name=Tin Dust
