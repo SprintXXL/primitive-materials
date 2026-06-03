@@ -1,6 +1,5 @@
 package com.SprintXXL.primitivematerials.materials;
 
-import com.SprintXXL.primitivematerials.common.BlockBase;
 import com.SprintXXL.primitivematerials.common.ItemBase;
 import com.SprintXXL.primitivematerials.materials.util.MaterialForm;
 import com.SprintXXL.primitivematerials.materials.util.MaterialForms;
@@ -10,6 +9,8 @@ import net.minecraft.item.Item;
 import java.util.*;
 
 public final class MaterialRegistry {
+
+    private static boolean initialized = false;
 
     private MaterialRegistry() {}
 
@@ -33,6 +34,12 @@ public final class MaterialRegistry {
     }
 
     public static void initDefinitions() {
+
+        if (initialized) {
+            return;
+        }
+
+        initialized = true;
 
         register(ModMaterials.IRON);
         register(ModMaterials.GOLD);
