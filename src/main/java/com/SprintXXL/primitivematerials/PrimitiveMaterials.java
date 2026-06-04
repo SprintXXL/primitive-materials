@@ -1,6 +1,6 @@
 package com.SprintXXL.primitivematerials;
 
-import com.SprintXXL.primitivematerials.materials.MaterialRegistry;
+import com.SprintXXL.primitivematerials.library.MaterialRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
