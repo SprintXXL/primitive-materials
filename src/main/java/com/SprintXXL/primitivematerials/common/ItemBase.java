@@ -10,7 +10,7 @@ public class ItemBase extends Item {
     public ItemBase(String name) {
 
         setRegistryName(MODID, name);
-        setUnlocalizedName(MODID + "." + name);
+        setTranslationKey(MODID + "." + name);
         setCreativeTab(CreativeTabs.MATERIALS);
     }
 }

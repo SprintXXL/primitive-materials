@@ -12,7 +12,7 @@ public class BlockBase extends Block {
         super(Material.ROCK);
 
         setRegistryName(MODID, name);
-        setUnlocalizedName(MODID + "." + name);
+        setTranslationKey(MODID + "." + name);
         setCreativeTab(CreativeTabs.MATERIALS);
 
         setHardness(3.0F);
