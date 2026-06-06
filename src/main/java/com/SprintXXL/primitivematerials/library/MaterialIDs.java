@@ -4,7 +4,7 @@ public final class MaterialIDs {
 
     private MaterialIDs() {}
 
-    // METAL MATERIALS\\
+    // METAL MATERIALS \\
     public static final String IRON = "iron";
     public static final String COPPER = "copper";
     public static final String TIN = "tin";
@@ -21,6 +21,9 @@ public final class MaterialIDs {
     public static final String CINNABAR = "cinnabar";
 
     // RESOURCE MATERIALS \\
+    public static final String OBSIDIAN = "obsidian";
     public static final String FLINT = "flint";
     public static final String SAND = "sand";
+    public static final String BONE = "bone";
+    public static final String WOOD = "wood";
 }

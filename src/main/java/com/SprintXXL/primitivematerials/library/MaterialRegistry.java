@@ -46,7 +46,20 @@ public final class MaterialRegistry {
         register(ModMaterials.GOLD);
         register(ModMaterials.COPPER);
         register(ModMaterials.TIN);
+
         register(ModMaterials.BRONZE);
+
+        register(ModMaterials.REDSTONE);
+        register(ModMaterials.CINNABAR);
+        register(ModMaterials.DIAMOND);
+        register(ModMaterials.COAL);
+        register(ModMaterials.LIGNITE_COAL);
+
+        register(ModMaterials.OBSIDIAN);
+        register(ModMaterials.FLINT);
+        register(ModMaterials.SAND);
+        register(ModMaterials.BONE);
+        register(ModMaterials.WOOD);
     }
 
     private static final Map<MaterialForm, Map<MaterialDefinition, Item>> ITEMS =

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "primitivematerials:diamond_block"
+    }
+  }
+}
