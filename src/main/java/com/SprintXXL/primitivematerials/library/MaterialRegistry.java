@@ -5,7 +5,9 @@ import com.SprintXXL.primitivematerials.common.ItemBase;
 import com.SprintXXL.primitivematerials.library.util.MaterialForm;
 import com.SprintXXL.primitivematerials.library.util.MaterialForms;
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import java.util.*;
 
@@ -27,6 +29,28 @@ public final class MaterialRegistry {
 
     public static MaterialDefinition getMaterial(String id) {
         return MATERIALS.get(id);
+    }
+
+    public static MaterialDefinition getMaterialFromStack(ItemStack stack, MaterialForm form) {
+
+        if (stack.isEmpty()) {
+            return null;
+        }
+
+        for (MaterialDefinition material : ALL_MATERIALS) {
+
+            Item item = getItem(form, material);
+
+            if (item == null) {
+                continue;
+            }
+
+            if (stack.getItem() == item) {
+                return material;
+            }
+        }
+
+        return null;
     }
 
     public static void register(MaterialDefinition material) {
@@ -66,7 +90,14 @@ public final class MaterialRegistry {
             new HashMap<>();
 
     public static Item getItem(MaterialForm form, MaterialDefinition material) {
-        return ITEMS.get(form).get(material);
+
+        Map<MaterialDefinition, Item> itemMap = ITEMS.get(form);
+
+        if (itemMap == null) {
+            return null;
+        }
+
+        return itemMap.get(material);
     }
 
     public static Collection<Item> getItems() {
@@ -84,7 +115,14 @@ public final class MaterialRegistry {
             new HashMap<>();
 
     public static Block getBlock(MaterialForm form, MaterialDefinition material) {
-        return BLOCKS.get(form).get(material);
+
+        Map<MaterialDefinition, Block> blockMap = BLOCKS.get(form);
+
+        if (blockMap == null) {
+            return null;
+        }
+
+        return blockMap.get(material);
     }
 
     public static Collection<Block> getBlocks() {
@@ -185,7 +223,13 @@ public final class MaterialRegistry {
 
             if (forms.hasForm(MaterialForm.ROD)) {
 
-                Item item = new ItemBase(material.getRodName());
+                Item item;
+
+                if (material == ModMaterials.WOOD) {
+                    item = Items.STICK;
+                } else {
+                    item = new ItemBase(material.getRodName());
+                }
 
                 ITEMS.get(MaterialForm.ROD)
                         .put(material, item);

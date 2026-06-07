@@ -185,7 +185,8 @@ public final class ModMaterials {
                     MaterialIDs.WOOD,
                     MaterialType.RESOURCE,
                     new MaterialForms(
-                            DUST
+                            DUST,
+                            ROD
                     )
             );
 }
