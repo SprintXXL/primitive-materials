@@ -26,4 +26,5 @@ public final class MaterialIDs {
     public static final String SAND = "sand";
     public static final String BONE = "bone";
     public static final String WOOD = "wood";
+    public static final String STONE = "stone";
 }

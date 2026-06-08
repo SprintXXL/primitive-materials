@@ -4,8 +4,8 @@ import com.SprintXXL.primitivematerials.common.BlockBase;
 import com.SprintXXL.primitivematerials.common.ItemBase;
 import com.SprintXXL.primitivematerials.library.util.MaterialForm;
 import com.SprintXXL.primitivematerials.library.util.MaterialForms;
+import com.SprintXXL.primitivematerials.library.util.VanillaMaterialForms;
 import net.minecraft.block.Block;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -84,9 +84,13 @@ public final class MaterialRegistry {
         register(ModMaterials.SAND);
         register(ModMaterials.BONE);
         register(ModMaterials.WOOD);
+        register(ModMaterials.STONE);
     }
 
     private static final Map<MaterialForm, Map<MaterialDefinition, Item>> ITEMS =
+            new HashMap<>();
+
+    private static final Map<MaterialForm, Map<MaterialDefinition, Item>> CUSTOM_ITEMS =
             new HashMap<>();
 
     public static Item getItem(MaterialForm form, MaterialDefinition material) {
@@ -111,7 +115,21 @@ public final class MaterialRegistry {
         return allItems;
     }
 
+    public static Collection<Item> getCustomItems() {
+
+        Collection<Item> allCustomItems = new ArrayList<>();
+
+        for (Map<MaterialDefinition, Item> itemMap : CUSTOM_ITEMS.values()) {
+            allCustomItems.addAll(itemMap.values());
+        }
+
+        return allCustomItems;
+    }
+
     private static final Map<MaterialForm, Map<MaterialDefinition, Block>> BLOCKS =
+            new HashMap<>();
+
+    private static final Map<MaterialForm, Map<MaterialDefinition, Block>> CUSTOM_BLOCKS =
             new HashMap<>();
 
     public static Block getBlock(MaterialForm form, MaterialDefinition material) {
@@ -136,6 +154,17 @@ public final class MaterialRegistry {
         return allBlocks;
     }
 
+    public static Collection<Block> getCustomBlocks() {
+
+        Collection<Block> allCustomBlocks = new ArrayList<>();
+
+        for (Map<MaterialDefinition, Block> blockMap : CUSTOM_BLOCKS.values()) {
+            allCustomBlocks.addAll(blockMap.values());
+        }
+
+        return allCustomBlocks;
+    }
+
     public static void init() {
 
         initDefinitions();
@@ -144,152 +173,69 @@ public final class MaterialRegistry {
 
     private static void createContent() {
 
-        BLOCKS.put(MaterialForm.BLOCK, new HashMap<>());
+        initializeMap(ITEMS);
+        initializeMap(CUSTOM_ITEMS);
 
-        ITEMS.put(MaterialForm.ITEM, new HashMap<>());
-        ITEMS.put(MaterialForm.INGOT, new HashMap<>());
-        ITEMS.put(MaterialForm.NUGGET, new HashMap<>());
-        ITEMS.put(MaterialForm.DUST, new HashMap<>());
-        ITEMS.put(MaterialForm.PLATE, new HashMap<>());
-        ITEMS.put(MaterialForm.DENSE_PLATE, new HashMap<>());
-        ITEMS.put(MaterialForm.ROD, new HashMap<>());
-        ITEMS.put(MaterialForm.LONG_ROD, new HashMap<>());
-        ITEMS.put(MaterialForm.BOLT, new HashMap<>());
-        ITEMS.put(MaterialForm.SCREW, new HashMap<>());
-        ITEMS.put(MaterialForm.RING, new HashMap<>());
-        ITEMS.put(MaterialForm.FINE_WIRE, new HashMap<>());
-        ITEMS.put(MaterialForm.GEAR, new HashMap<>());
-        ITEMS.put(MaterialForm.SMALL_GEAR, new HashMap<>());
+        initializeMap(BLOCKS);
+        initializeMap(CUSTOM_BLOCKS);
 
         for (MaterialDefinition material : ALL_MATERIALS) {
 
             MaterialForms forms = material.getForms();
 
             if (forms.hasForm(MaterialForm.BLOCK)) {
-
-                Block block = new BlockBase(material.getBlockName());
-
-                BLOCKS.get(MaterialForm.BLOCK)
-                        .put(material, block);
+                createBlock(material);
             }
 
-            if (forms.hasForm(MaterialForm.ITEM)) {
+            for (MaterialForm form : MaterialForm.values()) {
 
-                Item item = new ItemBase(material.getItemName());
-
-                ITEMS.get(MaterialForm.ITEM)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.INGOT)) {
-
-                Item item = new ItemBase(material.getIngotName());
-
-                ITEMS.get(MaterialForm.INGOT)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.NUGGET)) {
-
-                Item item = new ItemBase(material.getNuggetName());
-
-                ITEMS.get(MaterialForm.NUGGET)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.DUST)) {
-
-                Item item = new ItemBase(material.getDustName());
-
-                ITEMS.get(MaterialForm.DUST)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.PLATE)) {
-
-                Item item = new ItemBase(material.getPlateName());
-
-                ITEMS.get(MaterialForm.PLATE)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.DENSE_PLATE)) {
-
-                Item item = new ItemBase(material.getDensePlateName());
-
-                ITEMS.get(MaterialForm.DENSE_PLATE)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.ROD)) {
-
-                Item item;
-
-                if (material == ModMaterials.WOOD) {
-                    item = Items.STICK;
-                } else {
-                    item = new ItemBase(material.getRodName());
+                if (form == MaterialForm.BLOCK) {
+                    continue;
                 }
 
-                ITEMS.get(MaterialForm.ROD)
-                        .put(material, item);
+                if (!forms.hasForm(form)) {
+                    continue;
+                }
+
+                createItem(material, form);
             }
+        }
+    }
 
-            if (forms.hasForm(MaterialForm.LONG_ROD)) {
+    public static void createItem(MaterialDefinition material, MaterialForm form) {
 
-                Item item = new ItemBase(material.getLongRodName());
+        Item item = VanillaMaterialForms.getVanillaItem(material, form);
 
-                ITEMS.get(MaterialForm.LONG_ROD)
-                        .put(material, item);
-            }
+        if (item == null) {
+            item = new ItemBase(form.getName(material));
 
-            if (forms.hasForm(MaterialForm.BOLT)) {
+            CUSTOM_ITEMS.get(form)
+                    .put(material, item);
+        }
 
-                Item item = new ItemBase(material.getBoltName());
+        ITEMS.get(form)
+                .put(material, item);
+    }
 
-                ITEMS.get(MaterialForm.BOLT)
-                        .put(material, item);
-            }
+    public static void createBlock(MaterialDefinition material) {
 
-            if (forms.hasForm(MaterialForm.SCREW)) {
+        Block block = VanillaMaterialForms.getVanillaBlock(material);
 
-                Item item = new ItemBase(material.getScrewName());
+        if (block == null) {
+            block = new BlockBase(material.getBlockName());
 
-                ITEMS.get(MaterialForm.SCREW)
-                        .put(material, item);
-            }
+            CUSTOM_BLOCKS.get(MaterialForm.BLOCK)
+                    .put(material, block);
+        }
 
-            if (forms.hasForm(MaterialForm.GEAR)) {
+        BLOCKS.get(MaterialForm.BLOCK)
+                .put(material, block);
+    }
 
-                Item item = new ItemBase(material.getGearName());
+    private static <T> void initializeMap(Map<MaterialForm, Map<MaterialDefinition, T>> map) {
 
-                ITEMS.get(MaterialForm.GEAR)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.SMALL_GEAR)) {
-
-                Item item = new ItemBase(material.getSmallGearName());
-
-                ITEMS.get(MaterialForm.SMALL_GEAR)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.RING)) {
-
-                Item item = new ItemBase(material.getRingName());
-
-                ITEMS.get(MaterialForm.RING)
-                        .put(material, item);
-            }
-
-            if (forms.hasForm(MaterialForm.FINE_WIRE)) {
-
-                Item item = new ItemBase(material.getFineWireName());
-
-                ITEMS.get(MaterialForm.FINE_WIRE)
-                        .put(material, item);
-            }
+        for (MaterialForm form : MaterialForm.values()) {
+            map.put(form, new HashMap<>());
         }
     }
 }

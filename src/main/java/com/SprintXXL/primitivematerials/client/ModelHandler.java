@@ -18,11 +18,11 @@ public class ModelHandler {
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
 
-        for (Item item : MaterialRegistry.getItems()) {
+        for (Item item : MaterialRegistry.getCustomItems()) {
             registerItemModels(item);
         }
 
-        for (Block block : MaterialRegistry.getBlocks()) {
+        for (Block block : MaterialRegistry.getCustomBlocks()) {
             registerBlockModels(block);
         }
     }

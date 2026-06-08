@@ -14,13 +14,13 @@ public class ModItems {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
-                MaterialRegistry.getItems().toArray(new Item[0])
+                MaterialRegistry.getCustomItems().toArray(new Item[0])
         );
     }
 
     @SubscribeEvent
     public static void registerItemBlocks(RegistryEvent.Register<Item> event) {
-        for (Block block : MaterialRegistry.getBlocks()) {
+        for (Block block : MaterialRegistry.getCustomBlocks()) {
             event.getRegistry().register(createItemBlock(block));
         }
     }

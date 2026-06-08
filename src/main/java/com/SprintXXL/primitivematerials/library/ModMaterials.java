@@ -153,7 +153,9 @@ public final class ModMaterials {
                     MaterialIDs.OBSIDIAN,
                     MaterialType.RESOURCE,
                     new MaterialForms(
-                            DUST
+                            BLOCK,
+                            DUST,
+                            ROD
                     )
             );
     public static final MaterialDefinition FLINT =
@@ -169,6 +171,7 @@ public final class ModMaterials {
                     MaterialIDs.SAND,
                     MaterialType.RESOURCE,
                     new MaterialForms(
+                            BLOCK,
                             DUST
                     )
             );
@@ -177,6 +180,7 @@ public final class ModMaterials {
                     MaterialIDs.BONE,
                     MaterialType.RESOURCE,
                     new MaterialForms(
+                            BLOCK,
                             DUST
                     )
             );
@@ -187,6 +191,14 @@ public final class ModMaterials {
                     new MaterialForms(
                             DUST,
                             ROD
+                    )
+            );
+    public static final MaterialDefinition STONE =
+            new MaterialDefinition(
+                    MaterialIDs.STONE,
+                    MaterialType.RESOURCE,
+                    new MaterialForms(
+                            BLOCK
                     )
             );
 }
