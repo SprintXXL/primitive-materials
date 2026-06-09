@@ -34,6 +34,10 @@ public class VanillaMaterialForms {
             return Items.STICK;
         }
 
+        if (form == MaterialForm.ITEM && material == ModMaterials.FLINT) {
+            return Items.FLINT;
+        }
+
         return null;
     }
 }

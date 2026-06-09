@@ -155,6 +155,7 @@ public final class ModMaterials {
                     new MaterialForms(
                             BLOCK,
                             DUST,
+                            PLATE,
                             ROD
                     )
             );
@@ -163,6 +164,7 @@ public final class ModMaterials {
                     MaterialIDs.FLINT,
                     MaterialType.RESOURCE,
                     new MaterialForms(
+                            ITEM,
                             DUST
                     )
             );

@@ -39,11 +39,18 @@ public final class MaterialRegistry {
 
         for (MaterialDefinition material : ALL_MATERIALS) {
 
-            Item item = getItem(form, material);
+            if (form == MaterialForm.BLOCK) {
+                Block stackBlock = Block.getBlockFromItem(stack.getItem());
+                Block materialBlock = getBlock(form, material);
 
-            if (item == null) {
+                if (stackBlock == materialBlock) {
+                    return material;
+                }
+
                 continue;
             }
+
+            Item item = getItem(form, material);
 
             if (stack.getItem() == item) {
                 return material;
